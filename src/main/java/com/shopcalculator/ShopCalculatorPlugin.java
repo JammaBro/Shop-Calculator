@@ -12,8 +12,8 @@ import net.runelite.client.ui.NavigationButton;
 @Slf4j
 @PluginDescriptor(
 	name = "Shop Calculator",
-	description = "Calculates shop-related costs",
-	tags = {"shop", "calculator"}
+	description = "Calculator for bulk buying costs from NPC shops",
+	tags = {"shop", "calculator", "item"}
 )
 
 public class ShopCalculatorPlugin extends Plugin {
