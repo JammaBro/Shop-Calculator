@@ -26,10 +26,10 @@ public class ShopCalculatorPanel extends PluginPanel {
         JTextField amountPerWorldField = new JTextField("10", 10);
 
         // Set document filters for the text fields to allow integers only
-        ((AbstractDocument) itemValueField.getDocument()).setDocumentFilter(new IntegerOnlyFilter());
-        ((AbstractDocument) shopIncreaseField.getDocument()).setDocumentFilter(new IntegerOnlyFilter());
-        ((AbstractDocument) totalAmountField.getDocument()).setDocumentFilter(new IntegerOnlyFilter());
-        ((AbstractDocument) amountPerWorldField.getDocument()).setDocumentFilter(new IntegerOnlyFilter());
+        ((AbstractDocument) itemValueField.getDocument()).setDocumentFilter(new NumericFilter());
+        ((AbstractDocument) shopIncreaseField.getDocument()).setDocumentFilter(new NumericFilter());
+        ((AbstractDocument) totalAmountField.getDocument()).setDocumentFilter(new NumericFilter());
+        ((AbstractDocument) amountPerWorldField.getDocument()).setDocumentFilter(new NumericFilter());
 
         // Create result labels
         JLabel avgCostPerItemLabel = new JLabel();
@@ -61,7 +61,7 @@ public class ShopCalculatorPanel extends PluginPanel {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         addComponent(new JLabel("Base item value"), 0, 0, gbc);
-        addComponent(new JLabel("Increase per buy (%)"), 0, 1, gbc);
+        addComponent(new JLabel("Change per (%)"), 0, 1, gbc);
         addComponent(new JLabel("Amount to buy"), 2, 0, gbc);
         addComponent(new JLabel("Amount per world"), 2, 1, gbc);
         addComponent(new JLabel("Average per item"),9,0, gbc);
@@ -101,14 +101,14 @@ public class ShopCalculatorPanel extends PluginPanel {
         return numberFormat.format(number);
     }
 
-    // Handles filtering for integers only
-    private static class IntegerOnlyFilter extends DocumentFilter {
+    // Filtering for text fields to allow only numerics in them
+    private static class NumericFilter extends DocumentFilter {
         @Override
         public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
             StringBuilder sb = new StringBuilder(string);
             for (int i = sb.length() - 1; i >= 0; i--) {
                 char c = sb.charAt(i);
-                if (!Character.isDigit(c)) {
+                if (!Character.isDigit(c) && c != '.') {
                     sb.deleteCharAt(i);
                 }
             }
@@ -117,13 +117,10 @@ public class ShopCalculatorPanel extends PluginPanel {
 
         @Override
         public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-            if (text == null) {
-                return;
-            }
             StringBuilder sb = new StringBuilder(text);
             for (int i = sb.length() - 1; i >= 0; i--) {
                 char c = sb.charAt(i);
-                if (!Character.isDigit(c)) {
+                if (!Character.isDigit(c) && c != '.') {
                     sb.deleteCharAt(i);
                 }
             }
