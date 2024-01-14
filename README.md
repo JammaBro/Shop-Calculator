@@ -6,7 +6,7 @@ The plugin offers a calculator in the side panel where you can input:
 	- Item value
 	- Total amount to buy
 	- Price change per purchase (%)*
-	- Amount of items to buy/sell per hop
+	- Amount of items to buy per world hop
 	
 	*this value can bee seen on the wiki page of shops
 	
